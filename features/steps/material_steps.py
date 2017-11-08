@@ -1,4 +1,3 @@
-import json
 import time
 
 from behave import when, then
