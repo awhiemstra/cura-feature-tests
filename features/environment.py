@@ -25,7 +25,7 @@ class CuraProxy(QObject):
 
         self.__process = QProcess(self)
         self.__process.setProgram(self.__executable_path)
-        self.__process.setArguments(["C:/workspace/repositories/Cura/cura_app.py", "--headless"])
+        self.__process.setArguments(["--headless"])
         self.__process.start()
         self.__process.waitForStarted()
 
