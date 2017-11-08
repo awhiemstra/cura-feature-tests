@@ -91,6 +91,12 @@ class CuraProxy(QObject):
     def renameMaterial(self, material_id, new_name):
         self.call("renameMaterial", material_id, new_name)
 
+    def importMaterial(self, material_file_path):
+        self.call("importMaterial", material_file_path)
+
+    def exportMaterial(self, material_id, material_file_path):
+        self.call("exportMaterial", material_id, material_file_path)
+
 
 def before_all(context):
     context.qt_app = QGuiApplication(sys.argv)

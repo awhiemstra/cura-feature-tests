@@ -43,3 +43,15 @@ Feature: Basic Operations for Materials in Cura
          Then the following materials are present
               | id                | name            |
               | my_material       | My New Material |
+
+    Scenario: Import a material
+        Given Cura is running
+         When we import material "data/test_abs_material.xml.fdm_material"
+         Then the following materials are present
+              | id                | name          | brand | material |
+              | test_abs_material | Test Material | Test  | ABS      |
+
+    Scenario: Export a material
+        Given Cura is running
+         When we export material "test_abs_material" to file "output/test_abs_material.xml.fdm_material"
+         Then files "data/test_abs_material.xml.fdm_material" and "output/test_abs_material.xml.fdm_material" are the same

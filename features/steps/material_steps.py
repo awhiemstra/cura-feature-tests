@@ -1,3 +1,4 @@
+import os
 import time
 
 from behave import when, then
@@ -32,6 +33,31 @@ def step_remove_material(context, material_id):
 def step_rename_material(context, material_id, new_material_name):
     context.cura.renameMaterial(material_id, new_material_name)
     time.sleep(1)
+
+
+@when('we import material "{material_file}"')
+def step_import_material(context, material_file):
+    material_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", material_file))
+    assert os.path.isfile(material_file_path), "The provided material file must exist."
+
+    context.cura.importMaterial(material_file_path)
+    time.sleep(4)
+
+
+@when('we export material "{material_id}" to file "{material_file}"')
+def step_export_material(context, material_id, material_file):
+    material_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", material_file))
+    print("Creating dir [%s] ..." % os.path.dirname(material_file_path))
+    os.makedirs(os.path.dirname(material_file_path), exist_ok = True)
+
+    # remove the file first
+    try:
+        os.remove(material_file_path)
+    except:
+        pass
+
+    context.cura.exportMaterial(material_id, material_file_path)
+    time.sleep(2)
 
 
 @then('check if the active material is "{material_id}"')
