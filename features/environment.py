@@ -1,3 +1,4 @@
+import json
 import sys
 import os
 import time
@@ -70,7 +71,22 @@ class CuraProxy(QObject):
         self.call("setActiveMaterial", material_id)
 
     def getActiveMaterial(self):
-        return self.call("getActiveMaterial").arguments()
+        return json.loads(self.call("getActiveMaterial").arguments()[0])
+
+    def createMaterial(self, material_id, material_name):
+        self.call("createMaterial", material_id, material_name)
+
+    def duplicateMaterial(self, base_material_id, new_id):
+        self.call("duplicateMaterial", base_material_id, new_id)
+
+    def hasMaterial(self, material_id):
+        return self.call("hasMaterial", material_id).arguments()[0]
+
+    def getMaterial(self, material_id):
+        return json.loads(self.call("getMaterial", material_id).arguments()[0])
+
+    def removeMaterial(self, material_id):
+        self.call("removeMaterial", material_id)
 
 
 def before_all(context):

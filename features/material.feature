@@ -18,3 +18,21 @@ Feature: Basic Operations for Materials in Cura
          When we set active material to "ultimaker_cpe_white"
          Then check if the current machine is "UM3"
           And check if the active material is "ultimaker_cpe_white"
+
+    Scenario: Create a new material
+        Given Cura is running
+         When we create a new material "my_material" named as "My Material"
+         Then material "my_material" should exist
+
+    Scenario: Duplicate a material
+        Given Cura is running
+         When we duplicate from material "generic_abs" as "my_duplicated_abs"
+         Then the following materials are present
+              | id                | name           |
+              | my_duplicated_abs | Generic ABS #2 |
+              | my_material       | My Material    |
+
+    Scenario: Remove a material
+        Given Cura is running
+         When we remove material "my_duplicated_abs"
+         Then material "my_duplicated_abs" should not exist
