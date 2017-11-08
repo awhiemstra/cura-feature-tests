@@ -54,6 +54,18 @@ def step_impl(context, machine_name):
     time.sleep(1)
 
 
+@when('we set active material to "{material_id}"')
+def step_impl(context, material_id):
+    context.cura.setActiveMaterial(material_id)
+    time.sleep(5)
+
+
+@then('check if the active material is "{material_id}"')
+def step_impl(context, material_id):
+    active_material_id = context.cura.getActiveMaterial()[0]
+    assert_that(active_material_id, equal_to(material_id))
+
+
 @when('we load model {model}')
 def step_impl(context, model):  # -- NOTE: number is converted into integer
     path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data", model))

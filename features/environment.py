@@ -50,6 +50,7 @@ class CuraProxy(QObject):
 
     def hasMachine(self, machine_name):
         reply = QDBusReply(self.call("hasMachine", machine_name))
+
         return reply.value()
 
     def renameMachine(self, old_machine_name, new_machine_name):
@@ -64,6 +65,12 @@ class CuraProxy(QObject):
 
     def setActiveMachine(self, machine_name):
         self.call("setActiveMachine", machine_name)
+
+    def setActiveMaterial(self, material_id):
+        self.call("setActiveMaterial", material_id)
+
+    def getActiveMaterial(self):
+        return self.call("getActiveMaterial").arguments()
 
 
 def before_all(context):
