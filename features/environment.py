@@ -88,6 +88,9 @@ class CuraProxy(QObject):
     def removeMaterial(self, material_id):
         self.call("removeMaterial", material_id)
 
+    def renameMaterial(self, material_id, new_name):
+        self.call("renameMaterial", material_id, new_name)
+
 
 def before_all(context):
     context.qt_app = QGuiApplication(sys.argv)

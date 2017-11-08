@@ -28,6 +28,12 @@ def step_remove_material(context, material_id):
     time.sleep(2)
 
 
+@when('we rename material "{material_id}" as "{new_material_name}"')
+def step_rename_material(context, material_id, new_material_name):
+    context.cura.renameMaterial(material_id, new_material_name)
+    time.sleep(1)
+
+
 @then('check if the active material is "{material_id}"')
 def step_check_active_material(context, material_id):
     active_material_id = context.cura.getActiveMaterial()["id"]

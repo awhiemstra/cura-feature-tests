@@ -36,3 +36,10 @@ Feature: Basic Operations for Materials in Cura
         Given Cura is running
          When we remove material "my_duplicated_abs"
          Then material "my_duplicated_abs" should not exist
+
+    Scenario: Rename a material
+        Given Cura is running
+         When we rename material "my_material" as "My New Material"
+         Then the following materials are present
+              | id                | name            |
+              | my_material       | My New Material |
