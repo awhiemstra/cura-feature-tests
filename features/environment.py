@@ -124,7 +124,14 @@ def _removeCuraDirectories():
         user_home = os.path.expanduser("~")
         dirs_to_remove = [os.path.join(user_home, "AppData", "Local", "cura"),
                           os.path.join(user_home, "AppData", "Roaming", "cura")]
-    # TODO: add code for linux and mac
+    elif platform.system().lower() == "darwin":
+        user_home = os.path.expanduser("~")
+        dirs_to_remove = [os.path.join(user_home, "Library", "Application Support", "cura")]
+    elif platform.system().lower() == "linux":
+        user_home = os.path.expanduser("~")
+        dirs_to_remove = [os.path.join(user_home, ".config", "cura"),
+                          os.path.join(user_home, ".local", "share", "cura"),
+                          os.path.join(user_home, ".cache", "cura"),]
 
     for dir_to_remove in dirs_to_remove:
         if os.path.isdir(dir_to_remove):
