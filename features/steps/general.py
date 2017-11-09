@@ -17,7 +17,7 @@ def step_check_files_are_the_same(context, file1, file2):
     hash2 = hashlib.sha1()
     with open(file1_path, "rb") as f:
         hash1.update(f.read())
-    with open(file1_path, "rb") as f:
+    with open(file2_path, "rb") as f:
         hash2.update(f.read())
 
     assert_that(hash1.hexdigest(), equal_to(hash2.hexdigest()))
