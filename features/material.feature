@@ -54,4 +54,6 @@ Feature: Basic Operations for Materials in Cura
     Scenario: Export a material
         Given Cura is running
          When we export material "test_abs_material" to file "output/test_abs_material.xml.fdm_material"
-         Then files "data/test_abs_material.xml.fdm_material" and "output/test_abs_material.xml.fdm_material" are the same
+         Then the following files are present
+              | file                                      |
+              | output/test_abs_material.xml.fdm_material |
