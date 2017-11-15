@@ -102,8 +102,20 @@ class CuraProxy(QObject):
 
     def getActiveExtruder(self):
         data = self.call("getActiveExtruder").arguments()[0]
-        print(data)
         return json.loads(data)
+
+    def setActiveQuality(self, quality_id):
+        self.call("setQualityProfile", quality_id)
+
+    def getActiveQuality(self):
+        data = self.call("getActiveQuality").arguments()[0]
+        return json.loads(data)
+
+    def saveGcode(self, file_name):
+        self.call("saveFile", file_name)
+
+    def slice(self):
+        self.call("slice", dbus_object = "/Backend", dbus_interface = "nl.ultimaker.cura.Backend")
 
 
 def before_all(context):
@@ -116,7 +128,7 @@ def after_all(context):
 
 
 def before_feature(context, feature):
-    _removeCuraDirectories()
+    #_removeCuraDirectories()
     context.cura.start()
 
 

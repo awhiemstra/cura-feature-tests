@@ -57,7 +57,7 @@ def step_impl(context, machine_name):
 @then('the extruder below is activated')
 def step_impl(context):
     actual_extruder_data = context.cura.getActiveExtruder()
-    assert context.table, "a table of materials is required"
+    assert context.table, "a table of extruders is required"
 
     for row in context.table:
         for key, value in row.items():
