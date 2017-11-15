@@ -15,6 +15,7 @@ class CuraProxy(QObject):
         super().__init__(parent)
 
         self.__executable_path = os.environ.get("CURA_EXECUTABLE", "C:/Program Files/Python35/python.exe")
+        self.__process_work_dir = os.environ.get("CURA_WORK_DIR", os.path.dirname(self.__executable_path))
         self.__process = None
 
         self.__dbus_service = "nl.ultimaker.cura"
@@ -26,6 +27,7 @@ class CuraProxy(QObject):
         self.__process = QProcess(self)
         self.__process.setProgram(self.__executable_path)
         self.__process.setArguments(["--headless"])
+        self.__process.setWorkingDirectory(self.__process_work_dir)
         self.__process.start()
         self.__process.waitForStarted()
 
