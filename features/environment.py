@@ -97,6 +97,14 @@ class CuraProxy(QObject):
     def exportMaterial(self, material_id, material_file_path):
         self.call("exportMaterial", material_id, material_file_path)
 
+    def setActiveExtruder(self, extruder_position):
+        self.call("setActiveExtruder", extruder_position)
+
+    def getActiveExtruder(self):
+        data = self.call("getActiveExtruder").arguments()[0]
+        print(data)
+        return json.loads(data)
+
 
 def before_all(context):
     context.qt_app = QGuiApplication(sys.argv)

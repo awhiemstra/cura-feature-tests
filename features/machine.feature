@@ -26,3 +26,15 @@ Feature: Basic Operation of Cura
         Given Cura is running
          When we remove machine "UM3 #2"
          Then machine "UM3 #2" should not exist
+
+    Scenario: Check active extruder
+         Then the extruder below is activated
+              | position |
+              |        0 |
+
+    Scenario: Switch active extruder
+        Given Cura is running
+         When we set active extruder to "1"
+         Then the extruder below is activated
+              | position |
+              |        1 |

@@ -25,7 +25,13 @@ def step_impl(context, machine_name):
 @when('we set active machine to "{machine_name}"')
 def step_impl(context, machine_name):
     context.cura.setActiveMachine(machine_name)
-    time.sleep(1)
+    time.sleep(5)
+
+
+@when('we set active extruder to "{extruder_position}"')
+def step_impl(context, extruder_position):
+    context.cura.setActiveExtruder(extruder_position)
+    time.sleep(5)
 
 
 @then('machine "{machine_name}" should exist')
@@ -46,3 +52,15 @@ def step_impl(context, machine_name):
     current_machine_name = context.cura.getActiveMachineName()
 
     assert_that(current_machine_name, equal_to(machine_name))
+
+
+@then('the extruder below is activated')
+def step_impl(context):
+    actual_extruder_data = context.cura.getActiveExtruder()
+    assert context.table, "a table of materials is required"
+
+    for row in context.table:
+        for key, value in row.items():
+            assert_that(key in actual_extruder_data, "[%s] is not in the extruder data [%s]" % (key, actual_extruder_data))
+            assert_that(str(value), equal_to(str(actual_extruder_data[key])),
+                        "field [%s] don't match" % key)
